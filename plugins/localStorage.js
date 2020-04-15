@@ -7,7 +7,8 @@ import createPersistedState from 'vuex-persistedstate'
 export default ({store}) => {
   window.onNuxtReady(() => {
     createPersistedState({
-        key: 'user',
+        //key: 'data',  // name of the key (default: vuex)
+        paths: ["articulos", "data"],   // states to persist
     })(store)
   })
 }

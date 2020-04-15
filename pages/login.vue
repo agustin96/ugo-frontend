@@ -70,12 +70,12 @@
 <script>
 import { required, email, minLength } from "vuelidate/lib/validators";
 import { mapState, mapActions } from "vuex";
-import { firebase } from "@/plugins/firebase.js";
+import { auth, facebook, google, twitter } from "@/plugins/firebase.js";
 
 export default {
   name: "login",
   layout: "login",
-  middleware: 'guest',
+  middleware: "guest",
   data() {
     return {
       appName: process.env.APP_NAME,
@@ -118,22 +118,22 @@ export default {
       switch (providerID) {
         case "facebook":
           console.log("Iniciando sesion con facebook");
-          provider = new firebase.auth.FacebookAuthProvider();
+          provider = facebook;
           provider.addScope("email");
           break;
         case "google":
           console.log("Iniciando sesion con google");
-          provider = new firebase.auth.GoogleAuthProvider();
+          provider = google;
           provider.addScope("email");
           provider.addScope("profile");
           break;
         case "twitter":
           console.log("Iniciando sesion con twitter");
-          provider = new firebase.auth.TwitterAuthProvider();
+          provider = twitter;
       }
 
       try {
-        const result = await firebase.auth().signInWithPopup(provider);
+        const result = await auth.signInWithPopup(provider);
         if (result.credential) {
           // This gives you a Facebook Access Token. You can use it to access the Facebook API.
           //var credential = result.credential;
@@ -165,9 +165,7 @@ export default {
 
         if (error.code === "auth/account-exists-with-different-credential") {
           try {
-            const providers = await firebase
-              .auth()
-              .fetchSignInMethodsForEmail(email);
+            const providers = await auth.fetchSignInMethodsForEmail(email);
             // The returned 'providers' is a list of the available providers
             // linked to the email address. Please refer to the guide for a more
             // complete explanation on how to recover from this error.
@@ -203,12 +201,10 @@ export default {
       buttonAcceder.classList.add("disabled");
 
       try {
-        const result = await firebase
-          .auth()
-          .signInWithEmailAndPassword(
-            this.$v.email.$model,
-            this.$v.password.$model
-          );
+        const result = await auth.signInWithEmailAndPassword(
+          this.$v.email.$model,
+          this.$v.password.$model
+        );
       } catch (error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -258,7 +254,6 @@ export default {
       }
     },
     async saveUserAndRedirect(user) {
-
       // Save user in the store
       this.saveUser({
         uid: user.uid,
@@ -270,11 +265,6 @@ export default {
 
       this.$router.push("/");
     }
-  },
-  /* async mounted() {
-    firebase.auth().onAuthStateChanged(function(userAuth) {
-      console.log(userAuth);
-    });
-  } */
+  }
 };
 </script>

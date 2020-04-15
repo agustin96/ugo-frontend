@@ -23,10 +23,17 @@
     <v-app-bar app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
+
       <v-spacer />
+
+      <v-text-field v-if="searchText" placeholder="Escribe algo..."></v-text-field>
+      <v-btn icon @click="searchText = !searchText">
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
     </v-app-bar>
     <v-content>
-      <nuxt />
+      <nuxt v-if="!searchText" />
+      <SearchList v-else />
     </v-content>
 
     <Footer />
@@ -41,15 +48,18 @@
 import { mapState, mapActions } from "vuex";
 import { auth } from "@/plugins/firebase.js";
 import Footer from "@/components/Footer";
+import SearchList from "@/components/SearchList";
 
 export default {
   components: {
-    Footer
+    Footer,
+    SearchList,
   },
   data() {
     return {
       appName: process.env.APP_NAME,
       drawer: false,
+      searchText: false,
       items: [
         {
           icon: "mdi-apps",
@@ -115,3 +125,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.v-toolbar__content .v-text-field__details {
+  display: none;
+}
+</style>

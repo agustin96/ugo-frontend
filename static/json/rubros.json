@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "nombre": "Cafeteria",
+    "src": "https://www.casino.visualbar.com.ar/view/img/Cafeteria.jpg",
+    "title": "",
+    "subrubros": [
+      {
+        "id": 1,
+        "nombre": "Cafe",
+        "src": "https://www.casino.visualbar.com.ar/view/img/Cafe.jpg",
+        "title": ""    
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "nombre": "Bebidas",
+    "src": "https://www.casino.visualbar.com.ar/view/img/Bebidas.jpg",
+    "title": "",
+    "subrubros": [
+      {
+        "id": 1,
+        "nombre": "Aguardientes",
+        "src": "https://www.casino.visualbar.com.ar/view/img/Aguardientes.jpg",
+        "title": ""    
+      },
+      {
+        "id": 2,
+        "nombre": "Cervezas",
+        "src": "https://www.casino.visualbar.com.ar/view/img/Cervezas.jpg",
+        "title": ""    
+      },
+      {
+        "id": 3,
+        "nombre": "Tragos",
+        "src": "https://www.casino.visualbar.com.ar/view/img/Tragos.jpg",
+        "title": ""    
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "nombre": "Para comer",
+    "src": "https://www.casino.visualbar.com.ar/view/img/Para comer.jpg",
+    "title": "",
+    "subrubros": [
+      {
+        "id": 1,
+        "nombre": "Dulces",
+        "src": "https://www.casino.visualbar.com.ar/view/img/Dulces.jpg",
+        "title": ""    
+      },
+      {
+        "id": 2,
+        "nombre": "Pizzas",
+        "src": "https://www.casino.visualbar.com.ar/view/img/Pizzas.jpg",
+        "title": ""    
+      },
+      {
+        "id": 3,
+        "nombre": "Snacks",
+        "src": "https://www.casino.visualbar.com.ar/view/img/Snacks.jpg",
+        "title": ""    
+      }
+    ]
+  }
+]

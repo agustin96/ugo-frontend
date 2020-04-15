@@ -1,0 +1,19 @@
+{
+    "version": 1,
+    "locales": [
+        {
+            "nombre": "san",
+            "ubicacion": {
+                "latitud": -34.5585227,
+                "longitud": -58.4603042
+            }
+        },
+        {
+            "nombre": "mar",
+            "ubicacion": {
+                "latitud": -34.5585227,
+                "longitud": -58.4603042
+            }
+        }
+    ]
+}

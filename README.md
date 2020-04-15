@@ -14,6 +14,9 @@ $ npm run dev
 
 # build static project for production
 $ npm run generate
+
+# deploy to firebase
+$ firebase deploy
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).

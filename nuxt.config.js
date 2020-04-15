@@ -34,7 +34,7 @@ export default {
   plugins: [
     "~/plugins/vuelidate",
     "~/plugins/firebase",
-    //{ src: "~/plugins/localStorage.js", ssr: false },
+    { src: "~/plugins/localStorage.js", ssr: false },
   ],
   /*
    ** Nuxt.js dev-modules

@@ -1,57 +1,33 @@
 <template>
-  <v-app>
-    <!-- Logo -->
-    <v-container>
-      <v-row>
-        <v-col cols="2">
-          <v-img src="https://picsum.photos/510/300?random" width="64" height="64"></v-img>
-        </v-col>
-        <v-col cols="10">
-          <h2 class="d-inline">{{appName}}</h2>
-        </v-col>
-      </v-row>
-    </v-container>
-
-    <v-content>
-      <v-container>
-        <nuxt />
-      </v-container>
-    </v-content>
-
-    <Footer />
-  </v-app>
+    <div>
+        
+    </div>
 </template>
 
 <script>
-import Footer from "@/components/Footer";
+import { mapState, mapActions } from "vuex";
 import { auth } from "@/plugins/firebase.js";
 
 export default {
-  components: {
-    Footer
-  },
-  data() {
-    return {
-      appName: process.env.APP_NAME
-    };
-  },
   methods: {
     async observer() {
       return new Promise((resolve, reject) => {
-        auth.onAuthStateChanged(user => {
+        auth.onAuthStateChanged(function(user) {
           if (user) {
             console.log("User is signed in");
-            location.href = "/";
             resolve(user);
+          } else {
+            location.href = "/login";
           }
         });
       });
     }
   },
   async mounted() {
+    let user = auth.currentUser;
     let store = this.$store;
     let self = this;
-    if (auth.currentUser) {
+    if (user) {
       await store.dispatch("saveUser", {
         uid: user.uid,
         displayName: user.displayName,
@@ -59,9 +35,9 @@ export default {
         email: user.email,
         emailVerified: user.emailVerified
       });
-      console.log("currentUser", auth.currentUser);
+      console.log("currentUser", user);
     } else {
-      let user = await self.observer();
+      user = await self.observer();
       if (!user) location.href = "/login";
       await store.dispatch("saveUser", {
         uid: user.uid,
