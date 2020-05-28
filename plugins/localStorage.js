@@ -8,7 +8,7 @@ export default ({store}) => {
   window.onNuxtReady(() => {
     createPersistedState({
         //key: 'data',  // name of the key (default: vuex)
-        paths: ["articulos", "data"],   // states to persist
+        paths: ["articulos", "carrito", "data"],   // states to persist
     })(store)
   })
 }

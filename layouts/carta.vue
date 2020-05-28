@@ -26,7 +26,12 @@
 
       <v-spacer />
 
-      <v-text-field v-if="searchText" placeholder="Escribe algo..."></v-text-field>
+      <v-text-field
+        @keyup="searchArticulos()"
+        v-model="searchInput"
+        v-if="searchText"
+        placeholder="Escribe algo..."
+      ></v-text-field>
       <v-btn icon @click="searchText = !searchText">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
@@ -35,6 +40,10 @@
       <nuxt v-if="!searchText" />
       <SearchList v-else />
     </v-content>
+
+    <v-btn color="primary" dark absolute bottom right fixed fab nuxt to="/pedidos" :disabled="!enabledCart">
+      <v-icon>mdi-cart</v-icon>
+    </v-btn>
 
     <Footer />
 
@@ -53,13 +62,15 @@ import SearchList from "@/components/SearchList";
 export default {
   components: {
     Footer,
-    SearchList,
+    SearchList
   },
   data() {
     return {
       appName: process.env.APP_NAME,
       drawer: false,
       searchText: false,
+      searchInput: "",
+      enabledCart: false,
       items: [
         {
           icon: "mdi-apps",
@@ -81,7 +92,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["user"])
+    ...mapState(["user", "articulos"])
   },
   methods: {
     ...mapActions(["logout"]),
@@ -96,6 +107,19 @@ export default {
           }
         });
       });
+    },
+    searchArticulos() {
+      console.log(this.searchInput);
+      const articulos = this.articulos.filter(element =>
+        element.detalle.toLowerCase().includes(this.searchInput)
+      );
+      /* const articulos = store.state.articulos.filter(
+        element =>
+          element.id_rubro == params.rubro &&
+          element.id_subrubro == params.subrubro
+      ); */
+      console.log(articulos);
+      this.$store.dispatch("saveArticulosFiltered", articulos);
     }
   },
   async mounted() {
@@ -129,5 +153,8 @@ export default {
 <style>
 .v-toolbar__content .v-text-field__details {
   display: none;
+}
+.v-btn--fab.v-size--default.v-btn--absolute.v-btn--bottom {
+  bottom: 16px;
 }
 </style>

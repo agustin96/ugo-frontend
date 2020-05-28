@@ -40,7 +40,7 @@ export default {
         subtitle: "Tu historial de pedidos",
         icon: "mdi-cart",
         btnText: "Consultar",
-        to: "#"
+        to: "/pedidos"
       },
       {
         title: "Mozo",

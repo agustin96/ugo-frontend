@@ -28,52 +28,66 @@
 
           <v-list-item-action>
             <v-icon
+              v-if="item.specs == 0 && item.comentario == 0"
               large
-              @click="decrementArticulo(item.id)"
+              @click="decrementArticulo(item)"
+              color="grey lighten-1"
+            >mdi-minus-circle</v-icon>
+            <v-icon
+              v-else
+              large
+              @click="displayDecrementModal(item.id)"
               color="grey lighten-1"
             >mdi-minus-circle</v-icon>
             <v-list-item-action-text v-text="item.cantidad"></v-list-item-action-text>
-            <v-icon large @click="incrementArticulo(item.id)" color="yellow">mdi-plus-circle</v-icon>
+            <v-icon
+              v-if="item.specs == 0 && item.comentario == 0"
+              large
+              @click="incrementArticulo(item)"
+              color="yellow"
+            >mdi-plus-circle</v-icon>
+            <v-icon
+              v-else
+              large
+              @click.stop="displayIncrementModal(item)"
+              color="yellow"
+            >mdi-plus-circle</v-icon>
           </v-list-item-action>
         </v-list-item>
       </template>
     </v-list>
+
+    <IncrementModal/>
+
     <!-- {{$route.params}} -->
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
+import IncrementModal from '@/components/IncrementModal';
 
 export default {
+  layout: "carta",
+  components: {
+    IncrementModal,
+  },
   data: () => ({}),
-  methods: {
-    ...mapActions(["incrementArticulo"]),
-    ...mapActions(["decrementArticulo"])
-  },
   computed: {
-    ...mapState(["articulos"])
+    ...mapState(["articulos", "dialog"])
   },
-  /* async asyncData({ $axios, store, params, redirect }) {
-    if (!JSON.parse(localStorage.getItem("vuex")).data)
-      redirect("/")
-
-    // Moved to v-if in template
-
-    if (store.state.articulos) {
-      const articulos = store.state.articulos.filter(
-        element =>
-          element.id_rubro == params.rubro &&
-          element.id_subrubro == params.subrubro
-      );
-      console.log("Articulos a pintar", articulos);
-
-      return { articulos };
-    } else {
-      //redirect("/carta")
-      console.log("redirect to carta");
+  methods: {
+    ...mapActions(["incrementArticulo", 'decrementArticulo']),
+    displayDecrementModal(item) {
+      console.log(item)
+    },
+    displayIncrementModal(item) {
+      console.log(item)
+      this.$store.commit('SET_ARTICULO', item)
+      this.$store.commit('SET_DIALOG', true)
     }
-  }, */
+
+  },
   mounted() {
     if (
       !JSON.parse(localStorage.getItem("vuex")) ||

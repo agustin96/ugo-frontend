@@ -23,6 +23,7 @@
 //import { mapState } from "vuex";
 
 export default {
+  layout: 'carta',
   data() {
     return {
       rubros: null,

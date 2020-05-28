@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-list two-line>
-      <template v-for="(item, index) in articulos">
-        <v-divider v-if="index != 0" :key="index"></v-divider>
+    <v-list two-line v-if="articulosFiltered">
+      <template v-for="(item, index) in articulosFiltered">
+        <v-divider v-if="index != 0" :key="item.id"></v-divider>
 
         <v-list-item :key="item.detalle">
           <v-list-item-avatar v-if="item.avatar">
@@ -23,11 +23,11 @@
           <v-list-item-action>
             <v-icon
               large
-              @click="decrementArticulo(item.id)"
+              @click="decrementArticulo(item)"
               color="grey lighten-1"
             >mdi-minus-circle</v-icon>
             <v-list-item-action-text v-text="item.cantidad"></v-list-item-action-text>
-            <v-icon large @click="incrementArticulo(item.id)" color="yellow">mdi-plus-circle</v-icon>
+            <v-icon large @click="incrementArticulo(item)" color="yellow">mdi-plus-circle</v-icon>
           </v-list-item-action>
         </v-list-item>
       </template>
@@ -40,13 +40,12 @@
 import { mapActions, mapState } from "vuex";
 
 export default {
-  data: () => ({}),
   methods: {
     ...mapActions(["incrementArticulo"]),
     ...mapActions(["decrementArticulo"])
   },
   computed: {
-    ...mapState(["articulos"])
+    ...mapState(["articulosFiltered"])
   }
 };
 </script>
