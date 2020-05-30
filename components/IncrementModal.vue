@@ -5,85 +5,31 @@
         <v-card-title class="headline">{{ articulo.detalle }}</v-card-title>
         <v-card-text>Elegí las opciones para tu {{ articulo.detalle }}</v-card-text>
         <template v-if="articulo.specs == 1">
-          <template v-if="articulo.spec1_estado != 0">
-            <v-card-text>{{ articulo.spec1_nombre }}</v-card-text>
-
-            <v-card-text v-if="articulo.spec1_estado == 1">
+          <template v-for="(item, index) in articulo.specs_datos">
+            <v-card-text :key="index" class="pb-0">{{ item.nombre }}</v-card-text>
+            <v-card-text :key="index" v-if="item.estado == 1">
               <v-checkbox
-                v-model="model[0].checkbox"
-                v-for="(item, index) in articulo.spec1_datos"
-                :label="item"
-                :value="item"
+                v-model="specs_datos[index].checkbox"
+                v-for="(elem, i) in item.datos"
+                :label="elem"
+                :value="elem"
                 hide-details
-                :key="index"
+                :key="i"
               ></v-checkbox>
             </v-card-text>
 
-            <v-card-text v-if="articulo.spec1_estado == 2">
-              <v-radio-group v-model="model[0].radio">
+            <v-card-text :key="index" v-if="item.estado == 2">
+              <v-radio-group v-model="specs_datos[index].radio">
                 <v-radio
-                  v-for="(item, index) in articulo.spec1_datos"
-                  :key="index"
-                  :label="item"
-                  :value="item"
-                ></v-radio>
-              </v-radio-group>
-            </v-card-text>
-          </template>
-
-          <template v-if="articulo.spec2_estado != 0">
-            <v-card-text>{{ articulo.spec2_nombre }}</v-card-text>
-
-            <v-card-text v-if="articulo.spec2_estado == 1">
-              <v-checkbox
-                v-for="(item, index) in articulo.spec2_datos"
-                :label="item"
-                :value="item"
-                hide-details
-                :key="index"
-              ></v-checkbox>
-            </v-card-text>
-
-            <v-card-text v-if="articulo.spec2_estado == 2">
-              <v-radio-group>
-                <v-radio
-                  v-for="(item, index) in articulo.spec2_datos"
-                  :key="index"
-                  :label="item"
-                  :value="item"
-                ></v-radio>
-              </v-radio-group>
-            </v-card-text>
-          </template>
-
-          <template v-if="articulo.spec3_estado != 0">
-            <v-card-text>{{ articulo.spec3_nombre }}</v-card-text>
-
-            <v-card-text v-if="articulo.spec3_estado == 1">
-              <v-checkbox
-                v-for="(item, index) in articulo.spec3_datos"
-                :label="item"
-                :value="item"
-                hide-details
-                :key="index"
-              ></v-checkbox>
-            </v-card-text>
-
-            <v-card-text v-if="articulo.spec3_estado == 2">
-              <v-radio-group>
-                <v-radio
-                  v-for="(item, index) in articulo.spec3_datos"
-                  :key="index"
-                  :label="item"
-                  :value="item"
+                  v-for="(elem, i) in item.datos"
+                  :key="i"
+                  :label="elem"
+                  :value="elem"
                 ></v-radio>
               </v-radio-group>
             </v-card-text>
           </template>
         </template>
-
-        {{model}}
-
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn text @click="closeDialog()">Cerrar</v-btn>
@@ -99,14 +45,19 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   data: () => ({
-    model: [
+    specs_datos: [
       {checkbox: [], radio: null},
       {checkbox: [], radio: null},
       {checkbox: [], radio: null},
-    ],
+      {checkbox: [], radio: null},
+      {checkbox: [], radio: null},
+    ]
   }),
   computed: {
     ...mapState(["dialog", "articulo"])
+  },
+  beforeDestroy() {
+    console.log('Increment Modal Component destroyed');
   },
   methods: {
     ...mapActions(["incrementArticulo"]),
@@ -114,7 +65,7 @@ export default {
       this.$store.commit("SET_DIALOG", !this.dialog);
     },
     add() {
-      console.log("articulo", this.articulo)
+      //console.log("articulo", this.articulo);
 
       let item = {
         avatar: this.articulo.avatar,
@@ -126,29 +77,30 @@ export default {
         precio: this.articulo.precio,
         specs: this.articulo.specs,
         specs_datos: []
-      }
-      console.log("item", item)
+      };
+      //console.log("item", item);
 
-      let model = this.model
-      let spec = this.spec
+      let specs_datos = this.specs_datos;
+      let spec = this.spec;
 
-      model.forEach((element, index) => {
-        console.log("checkbox", element.checkbox)
-        console.log("radio", element.radio)
+      specs_datos.forEach((element, index) => {
+        //console.log("checkbox", element.checkbox);
+        //console.log("radio", element.radio);
         if (element.checkbox.length > 0) {
-          item.specs_datos.push(element.checkbox)
-        }
-        else if (element.radio !== null) {
-          item.specs_datos.push(element.radio)
+          element.checkbox.forEach((e, i) => {
+            item.specs_datos.push(e);
+          });
+        } else if (element.radio !== null) {
+          item.specs_datos.push(element.radio);
         }
       });
 
-      console.log("item", item)
-      this.incrementArticulo(item)
+      //console.log("item", item);
+      this.incrementArticulo(item);
 
-      this.closeDialog()
+      this.closeDialog();
     }
-  }
+  },
 };
 </script>
 

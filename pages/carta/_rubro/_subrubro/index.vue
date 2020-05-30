@@ -94,6 +94,7 @@ export default {
       !JSON.parse(localStorage.getItem("vuex")).data
     )
       location.assign("/");
+
     if (!JSON.parse(localStorage.getItem("vuex")).articulos)
       location.assign("/home");
   }
