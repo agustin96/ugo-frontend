@@ -1,37 +1,41 @@
 [
   {
     "id": 5,
-    "detalle": "Café Irlandés",
+    "detail": "Café Irlandés",
     "avatar": "https://picsum.photos/128",
     "specs": 1,
-    "descripcion": "Café con un toque del mejor whisky irlandes",
+    "description": "Café con un toque del mejor whisky irlandes",
     "specs_datos": [
       {
+        "item_id": 5,
         "id": 1,
         "estado": 2,
         "nombre": "Elegí una Opcion",
         "datos": ["Fuerte", "Suave"]
       },
       {
+        "item_id": 5,
         "id": 2,
         "estado": 1,
         "nombre": "Selecciona los items",
         "datos": ["Azucar", "Edulcorante"]
       },
       {
+        "item_id": 5,
         "id": 3,
         "estado": 1,
         "nombre": "Selecciona los items",
         "datos": ["Plato", "Cuchara"]
       },
       {
+        "item_id": 5,
         "id": 4,
         "estado": 2,
         "nombre": "Elegí una Cuchara",
         "datos": ["Chica", "Grande"]
       }
     ],
-    "precio": 180.00,
+    "price": 180.00,
     "descuento": 0,
     "id_rubro": 1,
     "id_subrubro": 1,
@@ -42,19 +46,20 @@
   },
   {
     "id": 6,
-    "detalle": "Café Tropical",
+    "detail": "Café Tropical",
     "avatar": "https://picsum.photos/128",
-    "descripcion": "",
+    "description": "",
     "specs": 1,
     "specs_datos": [
       {
+        "item_id": 6,
         "id": 1,
         "estado": 2,
         "nombre": "Elegí una Opcion",
         "datos": ["Agua", "Soda"]
       }
     ],
-    "precio": 190.00,
+    "price": 190.00,
     "descuento": 0,
     "id_rubro": 1,
     "id_subrubro": 1,
@@ -65,12 +70,12 @@
   },
   {
     "id": 40,
-    "detalle": "Quilmes Cristal",
+    "detail": "Quilmes Cristal",
     "avatar": "https://picsum.photos/128",
-    "descripcion": "",
+    "description": "",
     "specs": 0,
     "specs_datos": [],
-    "precio": 150.00,
+    "price": 150.00,
     "descuento": 0,
     "id_rubro": 2,
     "id_subrubro": 2,
