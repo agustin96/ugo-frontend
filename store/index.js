@@ -5,7 +5,9 @@ export const state = () => ({
   articulos: {},
   articulosFiltered: null,
   carrito: [],
-  dialog: false, // temporal para modal
+  data: null,
+  incrementModalDisplay: false,
+  enabledCart: false,
   latitudes: null,
   mesas: null,
   rubros: null,
@@ -43,8 +45,14 @@ export const mutations = {
   SET_DATA(state, payload) {
     state.data = payload;
   },
-  SET_DIALOG(state, payload) {
-    state.dialog = payload;
+  SET_INCREMENT_MODAL_DISPLAY(state, payload) {
+    state.incrementModalDisplay = payload;
+  },
+  SET_DECREMENT_MODAL_DISPLAY(state, payload) {
+    state.decrementModalDisplay = payload;
+  },
+  SET_ENABLED_CART(state, payload) {
+    state.enabledCart = payload;
   },
   SET_MESAS(state, payload) {
     state.mesas = payload;
@@ -74,7 +82,7 @@ export const actions = {
       console.log(error);
     }
   },
-  incrementArticulo({ commit, state }, payload) {
+  incrementArticulo({ commit, state, dispatch }, payload) {
     const indexArticulos = state.articulos.findIndex(element => {
       return element.id == payload.id;
     });
@@ -83,14 +91,16 @@ export const actions = {
 
     // Busca en el CARRITO si existe el articulo
     const indexCarrito = state.carrito.findIndex(element => {
-      return element.id == payload.id;
+      return (element.id == payload.id && JSON.stringify(element.specs_datos) == JSON.stringify(payload.specs_datos));
     });
 
-    const articulo = payload
+    const articulo = payload;
 
     commit("INCREMENT_ARTICULO", {indexArticulos, indexCarrito, articulo});
+
+    dispatch('isCartEnabled');
   },
-  decrementArticulo({ commit, state }, payload) {
+  decrementArticulo({ commit, state, dispatch }, payload) {
     const indexArticulos = state.articulos.findIndex(element => {
       return element.id == payload.id;
     });
@@ -98,6 +108,15 @@ export const actions = {
     if (indexArticulos === -1) return;
 
     commit("DECREMENT_ARTICULO", indexArticulos);
+
+    dispatch('isCartEnabled');
+  },
+  isCartEnabled({commit, state}) {
+    let enabledCart = false;
+    if (state.carrito.length > 0)
+      enabledCart = true;
+
+    commit("SET_ENABLED_CART", enabledCart);
   },
   removeArticulo({ commit }, payload) {
     commit("SET_ARTICULOS", payload);

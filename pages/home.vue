@@ -58,9 +58,9 @@ export default {
       }
     ]
   }),
-  asyncData({store, redirect}) {
-    if (!store.state.data) {
-      redirect("/")
+  beforeCreate() {
+    if (!JSON.parse(localStorage.getItem("vuex")) || !JSON.parse(localStorage.getItem("vuex")).data) {
+      location.assign("/");
     }
   },
 };

@@ -9,16 +9,16 @@
 
         <v-list-item
           v-if="item.id_rubro == $route.params.rubro && item.id_subrubro == $route.params.subrubro"
-          :key="item.detalle"
+          :key="item.detail"
         >
           <v-list-item-avatar v-if="item.avatar">
             <v-img :src="item.avatar"></v-img>
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title v-html="item.detalle"></v-list-item-title>
-            <v-list-item-subtitle v-html="`<span class='text--primary'>$${item.precio}</span>`"></v-list-item-subtitle>
-            <v-list-item-subtitle v-if="item.descripcion" v-html="item.descripcion"></v-list-item-subtitle>
+            <v-list-item-title v-html="item.detail"></v-list-item-title>
+            <v-list-item-subtitle v-html="`<span class='text--primary'>$${item.price}</span>`"></v-list-item-subtitle>
+            <v-list-item-subtitle v-if="item.description" v-html="item.description"></v-list-item-subtitle>
           </v-list-item-content>
 
           <!-- <v-list-item-icon>
@@ -84,7 +84,7 @@ export default {
     displayIncrementModal(item) {
       console.log(item)
       this.$store.commit('SET_ARTICULO', item)
-      this.$store.commit('SET_DIALOG', true)
+      this.$store.commit('SET_INCREMENT_MODAL_DISPLAY', true)
     }
 
   },

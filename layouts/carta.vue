@@ -70,7 +70,7 @@ export default {
       drawer: false,
       searchText: false,
       searchInput: "",
-      enabledCart: false,
+      //enabledCart: false,
       items: [
         {
           icon: "mdi-apps",
@@ -92,10 +92,10 @@ export default {
     };
   },
   computed: {
-    ...mapState(["user", "articulos"])
+    ...mapState(["user", "articulos", "enabledCart"])
   },
   methods: {
-    ...mapActions(["logout"]),
+    ...mapActions(["logout", "isCartEnabled"]),
     async observer() {
       return new Promise((resolve, reject) => {
         auth.onAuthStateChanged(user => {
@@ -111,7 +111,7 @@ export default {
     searchArticulos() {
       console.log(this.searchInput);
       const articulos = this.articulos.filter(element =>
-        element.detalle.toLowerCase().includes(this.searchInput)
+        element.detail.toLowerCase().includes(this.searchInput)
       );
       /* const articulos = store.state.articulos.filter(
         element =>
@@ -146,7 +146,9 @@ export default {
       });
       console.log("observer", user);
     }
-  }
+
+    this.isCartEnabled();
+  },
 };
 </script>
 
