@@ -57,7 +57,7 @@
       </template>
     </v-list>
 
-    <IncrementModal/>
+    <IncrementModal />
 
     <!-- {{$route.params}} -->
   </div>
@@ -65,7 +65,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import IncrementModal from '@/components/IncrementModal';
+import IncrementModal from "@/components/IncrementModal";
 
 export default {
   layout: "carta",
@@ -74,19 +74,18 @@ export default {
   },
   data: () => ({}),
   computed: {
-    ...mapState(["articulos", "dialog"])
+    ...mapState(["articulos", "dialog"]),
   },
   methods: {
-    ...mapActions(["incrementArticulo", 'decrementArticulo']),
+    ...mapActions(["incrementArticulo", "decrementArticulo"]),
     displayDecrementModal(item) {
-      console.log(item)
+      console.log(item);
     },
     displayIncrementModal(item) {
-      console.log(item)
-      this.$store.commit('SET_ARTICULO', item)
-      this.$store.commit('SET_INCREMENT_MODAL_DISPLAY', true)
-    }
-
+      console.log(item);
+      this.$store.commit("SET_ARTICULO", item);
+      this.$store.commit("SET_INCREMENT_MODAL_DISPLAY", true);
+    },
   },
   mounted() {
     if (
@@ -97,7 +96,7 @@ export default {
 
     if (!JSON.parse(localStorage.getItem("vuex")).articulos)
       location.assign("/home");
-  }
+  },
 };
 </script>
 
