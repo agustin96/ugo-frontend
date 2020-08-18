@@ -28,7 +28,7 @@
 
           <v-list-item-action>
             <v-icon
-              v-if="item.specs == 0 && item.comentario == 0"
+              v-if="!item.specs && !item.comentario"
               large
               @click="decrementArticulo(item)"
               color="grey lighten-1"
@@ -41,7 +41,7 @@
             >mdi-minus-circle</v-icon>
             <v-list-item-action-text v-text="item.cantidad"></v-list-item-action-text>
             <v-icon
-              v-if="item.specs == 0 && item.comentario == 0"
+              v-if="!item.specs && !item.comentario"
               large
               @click="incrementArticulo(item)"
               color="yellow"

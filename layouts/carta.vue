@@ -41,9 +41,16 @@
       <SearchList v-else />
     </v-content>
 
-    <v-btn color="primary" dark absolute bottom right fixed fab nuxt to="/pedidos" :disabled="!enabledCart">
-      <v-icon>mdi-cart</v-icon>
-    </v-btn>
+    <v-container style="position: absolute; display: fixed; bottom: 15px">
+      <nuxt-link to="/carrito">
+        <v-alert icon="mdi-cart" color="primary" prominent dense>
+          <v-row align="center">
+            <v-col class="grow" align="center">VER PEDIDO</v-col>
+            <v-col class="shrink">$480</v-col>
+          </v-row>
+        </v-alert>
+      </nuxt-link>
+    </v-container>
 
     <Footer />
 
@@ -62,7 +69,7 @@ import SearchList from "@/components/SearchList";
 export default {
   components: {
     Footer,
-    SearchList
+    SearchList,
   },
   data() {
     return {
@@ -75,30 +82,30 @@ export default {
         {
           icon: "mdi-apps",
           title: "Welcome",
-          to: "/"
+          to: "/",
         },
         {
           icon: "mdi-home",
           title: "Home",
-          to: "/home"
+          to: "/home",
         },
         {
           icon: "mdi-chart-bubble",
           title: "Inspire",
-          to: "/inspire"
-        }
+          to: "/inspire",
+        },
       ],
-      title: process.env.APP_NAME
+      title: process.env.APP_NAME,
     };
   },
   computed: {
-    ...mapState(["user", "articulos", "enabledCart"])
+    ...mapState(["user", "articulos", "enabledCart"]),
   },
   methods: {
     ...mapActions(["logout", "isCartEnabled"]),
     async observer() {
       return new Promise((resolve, reject) => {
-        auth.onAuthStateChanged(user => {
+        auth.onAuthStateChanged((user) => {
           if (user) {
             console.log("User is signed in");
             resolve(user);
@@ -110,7 +117,7 @@ export default {
     },
     searchArticulos() {
       console.log(this.searchInput);
-      const articulos = this.articulos.filter(element =>
+      const articulos = this.articulos.filter((element) =>
         element.detail.toLowerCase().includes(this.searchInput)
       );
       /* const articulos = store.state.articulos.filter(
@@ -120,7 +127,7 @@ export default {
       ); */
       console.log(articulos);
       this.$store.dispatch("saveArticulosFiltered", articulos);
-    }
+    },
   },
   async mounted() {
     let store = this.$store;
@@ -131,7 +138,7 @@ export default {
         displayName: auth.currentUser.displayName,
         photoURL: auth.currentUser.photoURL,
         email: auth.currentUser.email,
-        emailVerified: auth.currentUser.emailVerified
+        emailVerified: auth.currentUser.emailVerified,
       });
       console.log("currentUser", auth.currentUser);
     } else {
@@ -142,7 +149,7 @@ export default {
         displayName: user.displayName,
         photoURL: user.photoURL,
         email: user.email,
-        emailVerified: user.emailVerified
+        emailVerified: user.emailVerified,
       });
       console.log("observer", user);
     }
