@@ -15,6 +15,38 @@ export const state = () => ({
   user: ""
 });
 
+export const getters = {
+  getCarritoAmount(state) {
+    if (!state.carrito) return 0;
+
+    let total = 0;
+
+    state.carrito.forEach((e) => {
+      total += e.price;
+      if (e.specs && e.specs_datos.length > 0) {
+        e.specs_datos.forEach((j) => {
+          if (Array.isArray(j)) {
+            if (j.length > 0) {
+              j.forEach((k, i) => {
+                total += k.precio;
+              });
+            }
+          } else if (j.precio) {
+            total += j.precio;
+          }
+        });
+      }
+    });
+
+    return total;
+  },
+  getCarritoQuantity(state) {
+    return state.carrito.reduce((total, num) => {
+      return total + num.cantidad;
+    }, 0);
+  }
+}
+
 export const mutations = {
   INCREMENT_ARTICULO(state, payload) {
     state.articulos[payload.indexArticulos].cantidad++;

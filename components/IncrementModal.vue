@@ -6,7 +6,7 @@
         <v-card-text>Elegí las opciones para tu {{ articulo.detail }}</v-card-text>
         <div v-for="(data, index) in articulo.specs_datos">
           <div>
-            <select-validation :item="data" @changeData="form.parentData[index] = $event" />
+            <select-validation :item="data" @changeData="updateParentData($event, index)" />
           </div>
         </div>
         <v-card-text>
@@ -15,7 +15,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn text @click="closeDialog()">Cerrar</v-btn>
-          <v-btn color="primary" @click="submit()">Agregar</v-btn>
+          <v-btn color="primary" @click="submit()">Agregar ${{total}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -39,6 +39,7 @@ export default {
         valid: true,
         parentData: [],
       },
+      total: 0,
     };
   },
   computed: {
@@ -89,6 +90,26 @@ export default {
       this.incrementArticulo(item);
 
       this.closeDialog();
+    },
+    updateParentData(data, index) {
+      this.form.parentData[index] = data;
+      this.updateTotal();
+    },
+    updateTotal() {
+      let total = this.articulo.price;
+
+      this.form.parentData.forEach((element, index) => {
+        if (Array.isArray(element.$model)) {
+          if (element.$model.length > 0)
+            element.$model.forEach((e, i) => {
+              total += e.precio;
+            });
+        }
+        else if (!!element.$model) {
+          total += element.$model.precio;
+        }
+      });
+      this.total = total;
     },
   },
 };

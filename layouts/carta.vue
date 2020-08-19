@@ -30,7 +30,7 @@
         @keyup="searchArticulos()"
         v-model="searchInput"
         v-if="searchText"
-        placeholder="Escribe algo..."
+        placeholder="Busca un producto..."
       ></v-text-field>
       <v-btn icon @click="searchText = !searchText">
         <v-icon>mdi-magnify</v-icon>
@@ -41,12 +41,12 @@
       <SearchList v-else />
     </v-content>
 
-    <v-container style="position: absolute; display: fixed; bottom: 15px">
+    <v-container style="position: fixed; display: fixed; bottom: 15px">
       <nuxt-link to="/carrito">
         <v-alert icon="mdi-cart" color="primary" prominent dense>
           <v-row align="center">
             <v-col class="grow" align="center">VER PEDIDO</v-col>
-            <v-col class="shrink">$480</v-col>
+            <v-col class="shrink">${{getCarritoAmount}}</v-col>
           </v-row>
         </v-alert>
       </nuxt-link>
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 import { auth } from "@/plugins/firebase.js";
 import Footer from "@/components/Footer";
 import SearchList from "@/components/SearchList";
@@ -100,6 +100,7 @@ export default {
   },
   computed: {
     ...mapState(["user", "articulos", "enabledCart"]),
+    ...mapGetters(['getCarritoAmount']),
   },
   methods: {
     ...mapActions(["logout", "isCartEnabled"]),

@@ -6,7 +6,7 @@
       <v-select
         v-model="$v.data.$model"
         :items="item.datos"
-        item-text="nombre"
+        item-text="displayName"
         item-value="id"
         :label="item.nombre"
         :multiple="item.multiple"

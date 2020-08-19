@@ -18,12 +18,14 @@
             "id": 1,
             "spec_id": 1,
             "nombre": "Fuerte",
+            "displayName": "Fuerte + $10",
             "precio": 10
           },
           {
             "id": 2,
             "spec_id": 1,
             "nombre": "Suave",
+            "displayName": "Suave",
             "precio": 0
           }
         ]
@@ -39,13 +41,17 @@
           {
             "id": 1,
             "spec_id": 2,
-            "nombre": "Azucar"
+            "nombre": "Azucar",
+            "displayName": "Azucar",
+            "precio": 0
           },
           {
             "id": 2,
             "spec_id": 2,
             "disabled": true,
-            "nombre": "Edulcorante"
+            "nombre": "Edulcorante",
+            "displayName": "Edulcorante",
+            "precio": 0
           }
         ]
       },
@@ -60,12 +66,16 @@
           {
             "id": 1,
             "spec_id": 3,
-            "nombre": "Plato"
+            "nombre": "Plato",
+            "displayName": "Plato",
+            "precio": 0
           },
           {
             "id": 2,
             "spec_id": 3,
-            "nombre": "Cuchara"
+            "nombre": "Cuchara",
+            "displayName": "Cuchara",
+            "precio": 0
           }
         ]
       },
@@ -80,12 +90,16 @@
           {
             "id": 1,
             "spec_id": 4,
-            "nombre": "Chica"
+            "nombre": "Chica",
+            "displayName": "Chica",
+            "precio": 0
           },
           {
             "id": 2,
             "spec_id": 4,
-            "nombre": "Grande"
+            "nombre": "Grande",
+            "displayName": "Grande",
+            "precio": 0
           }
         ]
       }
@@ -117,12 +131,16 @@
           {
             "id": 1,
             "spec_id": 1,
-            "nombre": "Agua"
+            "nombre": "Agua",
+            "displayName": "Agua",
+            "precio": 0
           },
           {
             "id": 2,
             "spec_id": 1,
-            "nombre": "Soda"
+            "nombre": "Soda",
+            "displayName": "Soda",
+            "precio": 0
           }
         ]
       }
