@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div>
     <v-dialog :value="incrementModalDisplay" persistent>
       <v-card>
         <v-card-title class="headline">{{ articulo.detail }}</v-card-title>
